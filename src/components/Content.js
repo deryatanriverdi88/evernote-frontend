@@ -26,8 +26,8 @@ class Content extends Component {
     return (
       <div className='master-detail-element detail'>
           {/*this.renderContent()*/}
-        <NoteViewer  handleEdit={this.handleEdit}/>
-        <NoteEditor handleEdit={this.handleEdit}/>
+           <NoteViewer />
+          { /*<NoteEditor /> */}
 
       </div>
     );

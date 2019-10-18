@@ -6,13 +6,24 @@ import Content from './Content';
 class NoteContainer extends Component {
 
   state = {
-    note:{}
+    notes: [],
+    noteItem:{}
+  }
+
+  componentDidMount(){
+    fetch("http://localhost:3000/api/v1/notes")
+    .then(res=>res.json())
+    .then(noteObject => {
+      this.setState({
+        notes: noteObject
+      })
+    })
   }
 
   handleNoteViewer = (note) => {
     console.log(note)
     this.setState({
-      note: note
+      noteItem: note
     })
   }
 
@@ -25,7 +36,7 @@ class NoteContainer extends Component {
       <Fragment>
         <Search />
         <div className='container'>
-          <Sidebar notes={this.props.notes}
+          <Sidebar notes={this.state.notes}
             handleNoteViewer={this.handleNoteViewer}
             />
           <Content/>

@@ -3,9 +3,11 @@ import React, { Fragment } from 'react';
 const NoteViewer = (props) => {
   return (
     <Fragment>
-      <h2>{}</h2>
-      <p>{}</p>
-      <button>Edit</button>
+      <h2>Select a Title</h2>
+      <p></p>
+      {props.note ?
+      <button>Edit</button> :
+        null}
     </Fragment>
   );
 }
