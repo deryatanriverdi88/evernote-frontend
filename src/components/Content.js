@@ -12,22 +12,22 @@ import Instructions from './Instructions';
 */
 class Content extends Component {
 
-    renderContent = () => {
-     if (false) {
-      return <NoteEditor />;
-     } else if (false) {
-      return <NoteViewer />;
-     } else {
-      return <Instructions />;
-    }
-   }
+   //  renderContent = () => {
+   //   if (false) {
+   //    return <NoteEditor />;
+   //   } else if (false) {
+   //    return <NoteViewer />;
+   //   } else {
+   //    return <Instructions />;
+   //  }
+   // }
 
   render() {
     return (
       <div className='master-detail-element detail'>
           {/*this.renderContent()*/}
-           <NoteViewer />
-          { /*<NoteEditor /> */}
+           <NoteViewer note={this.props.note}/>
+          { /*<NoteEditor />*/ }
 
       </div>
     );

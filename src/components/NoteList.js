@@ -6,7 +6,8 @@ const NoteList = (props) => {
   return (
     <ul>
       { props.notes.map( note => {
-        return <NoteItem note={note} key={note.id}/>
+        return <NoteItem note={note} key={note.id}
+          handleNoteViewer={props.handleNoteViewer}/>
       })
     }
     </ul>

@@ -21,7 +21,7 @@ class NoteContainer extends Component {
   }
 
   handleNoteViewer = (note) => {
-    console.log(note)
+    console.log(note, "hello")
     this.setState({
       noteItem: note
     })
@@ -39,7 +39,7 @@ class NoteContainer extends Component {
           <Sidebar notes={this.state.notes}
             handleNoteViewer={this.handleNoteViewer}
             />
-          <Content/>
+          <Content note={this.state.noteItem}/>
         </div>
       </Fragment>
     );
