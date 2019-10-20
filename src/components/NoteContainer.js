@@ -9,16 +9,19 @@ class NoteContainer extends Component {
     notes: [],
     noteItem:{},
     title: "",
-    body:""
+    body:"",
+    show_editor: false
   }
 
-  handleEdit = (event) => {
-    console.log(event.target.value)
-    this.setState({
-      title: event.target.value,
-      boyd: event.target.value
-    })
+  handleEdit = (event, noteObject) => {
+    console.log(event.target)
+  }
 
+  handleClick = (event) => {
+    console.log(event.target, this.state.show_editor, "hey")
+    this.setState({
+      show_editor: true
+    })
   }
 
   componentDidMount(){
@@ -40,10 +43,7 @@ class NoteContainer extends Component {
 
 
   render() {
-    // console.log(this.props.notes)
-
-
-
+    console.log(this.props.notes, "I mounted")
     return (
       <Fragment>
         <Search />
@@ -52,7 +52,8 @@ class NoteContainer extends Component {
             handleNoteViewer={this.handleNoteViewer}
             />
           <Content note={this.state.noteItem}
-            handleEdit={this.handleEdit}/>
+            handleEdit={this.handleEdit}
+            handleClick={this.handleClick}/>
         </div>
       </Fragment>
     );
