@@ -5,9 +5,9 @@ const NoteViewer = (props) => {
     <Fragment>
       <h2>{props.note.title}</h2>
       <p>{props.note.body}</p>
-      {props.note ?
-      <button>Edit</button> :
-        null}
+
+      <button onClick={() => props.handleEdit(props.note)}>Edit</button>
+      {/* Find some logic so this edit button will be only displayed when there is a note*/}
     </Fragment>
   );
 }

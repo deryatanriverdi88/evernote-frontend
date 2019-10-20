@@ -12,6 +12,20 @@ import Instructions from './Instructions';
 */
 class Content extends Component {
 
+  state = {
+    title: "",
+    body:""
+  }
+
+  handleEdit = (event) => {
+    console.log(event.target.value)
+    this.setState({
+      title: event.target.value,
+      boyd: event.target.value
+    })
+
+  }
+
    //  renderContent = () => {
    //   if (false) {
    //    return <NoteEditor />;
@@ -26,8 +40,9 @@ class Content extends Component {
     return (
       <div className='master-detail-element detail'>
           {/*this.renderContent()*/}
-           <NoteViewer note={this.props.note}/>
-          { /*<NoteEditor />*/ }
+           <NoteViewer note={this.props.note}
+             handleEdit={this.handleEdit}/>
+           <NoteEditor  handleEdit={this.handleEdit}/>
 
       </div>
     );

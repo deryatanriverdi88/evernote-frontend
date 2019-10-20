@@ -21,11 +21,12 @@ class NoteContainer extends Component {
   }
 
   handleNoteViewer = (note) => {
-    console.log(note, "hello")
+    // console.log(note, "hello")
     this.setState({
       noteItem: note
     })
   }
+
 
   render() {
     // console.log(this.props.notes)
