@@ -7,7 +7,18 @@ class NoteContainer extends Component {
 
   state = {
     notes: [],
-    noteItem:{}
+    noteItem:{},
+    title: "",
+    body:""
+  }
+
+  handleEdit = (event) => {
+    console.log(event.target.value)
+    this.setState({
+      title: event.target.value,
+      boyd: event.target.value
+    })
+
   }
 
   componentDidMount(){
@@ -40,7 +51,8 @@ class NoteContainer extends Component {
           <Sidebar notes={this.state.notes}
             handleNoteViewer={this.handleNoteViewer}
             />
-          <Content note={this.state.noteItem}/>
+          <Content note={this.state.noteItem}
+            handleEdit={this.handleEdit}/>
         </div>
       </Fragment>
     );
