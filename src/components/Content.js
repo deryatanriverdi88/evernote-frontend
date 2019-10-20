@@ -25,7 +25,9 @@ class Content extends Component {
 
   render() {
     return (
-      <div className="master-detail-element detail">{this.renderContent()}</div>
+      <div className="master-detail-element detail">
+        {this.renderContent()}
+      </div>
     );
   }
 }

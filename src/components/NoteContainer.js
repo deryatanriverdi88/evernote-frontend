@@ -10,7 +10,16 @@ class NoteContainer extends Component {
     noteItem:{},
     title: "",
     body:"",
-    show_editor: false
+    show_editor: false,
+    noteFilter: "",
+    filteredNotes: []
+  }
+
+  handleFilterChange = (event) => {
+    console.log(event.target.value)
+    this.setState({
+      noteFilter: event.target.value
+    })
   }
 
   handleEdit = (event, noteObject) => {
@@ -23,6 +32,32 @@ class NoteContainer extends Component {
       show_editor: true
     })
   }
+
+  handleNewClick = (event) =>  {
+    // console.log(event.target, "hey")
+    event.preventDefault()
+
+    fetch("http://localhost:3000/api/v1/notes", {
+      method: "POST",
+      headers: {
+        "Content-Type":"application/json",
+        "Accept":"application/json"
+      },
+      body: JSON.stringify({
+        user_id: 1,
+        title: "default",
+        body: "placeholder"
+      })
+    })
+    .then(res => res.json())
+    .then(newNote => {
+      this.setState({
+        notes: [...this.state.notes, newNote]
+    })
+   })
+}
+
+
 
   componentDidMount(){
     fetch("http://localhost:3000/api/v1/notes")
@@ -43,13 +78,14 @@ class NoteContainer extends Component {
 
 
   render() {
-    console.log(this.props.notes, "I mounted")
+    // console.log(this.props.notes, "I mounted")
     return (
       <Fragment>
-        <Search />
+        <Search handleFilter={this.handleFilterChange}/>
         <div className='container'>
           <Sidebar notes={this.state.notes}
             handleNoteViewer={this.handleNoteViewer}
+            handleNewClick={this.handleNewClick}
             />
           <Content note={this.state.noteItem}
             handleEdit={this.handleEdit}
