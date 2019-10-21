@@ -9,7 +9,7 @@ class NoteEditor extends Component {
         <input defaultValue={this.props.note.title} type="text" name="title" />
         <textarea defaultValue={this.props.note.body} name="body" />
         <div className="button-row">
-          <input className="button" type="submit" value="Save" />
+          <input onClick={(e) => this.props.handleSubmit(e, this.props.note.id)} className="button" type="submit" value="Save" />
           <button type="button">Cancel</button>
         </div>
       </form>

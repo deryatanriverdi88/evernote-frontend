@@ -13,9 +13,10 @@ import Instructions from "./Instructions";
 
 class Content extends Component {
   renderContent = () => {
-    console.log(this.props.showEditor)
+    // console.log(this.props.showEditor)
     if (this.props.showEditor === true) {
-       return <NoteEditor note={this.props.note} handleEdit={this.props.handleEdit}/>;
+       return <NoteEditor note={this.props.note} handleEdit={this.props.handleEdit}
+         handleSubmit={this.props.handleSubmit}/>;
     } else if (this.props.note.id) {
        return <NoteViewer note={this.props.note} handleClick={this.props.handleClick}/>;
     } else {

@@ -11,8 +11,7 @@ class NoteContainer extends Component {
     title: "",
     body:"",
     showEditor: false,
-    noteFilter: "",
-    filteredNotes: []
+    noteFilter: ""
   }
 
   handleFilterChange = (event) => {
@@ -24,10 +23,36 @@ class NoteContainer extends Component {
 
   handleEdit = (event) => {
     console.log(event.target.value)
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  handleSubmit = (e, id) => {
+    console.log(id)
+    e.preventDefault()
+
+    fetch(`http://localhost:3000/api/v1/notes/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-type":"application/json",
+        "Accept":"application/json"
+      },
+      body: JSON.stringify({
+        title: this.state.title,
+        body: this.state.body
+      })
+    })
+    .then(res => res.json())
+    .then(noteObject => {
+     this.setState({
+       notes: [noteObject, ...this.state.notes]
+     })
+    })
   }
 
   handleClick = (event) => {
-    console.log(event.target, this.state.showEditor, "hey")
+    // console.log(event.target, this.state.showEditor, "hey")
     this.setState({
       showEditor: true
     })
@@ -80,6 +105,7 @@ class NoteContainer extends Component {
 
   render() {
     // console.log(this.props.notes, "I mounted")
+    // console.log(this.state.title, this.state.body)
     let filterNotes = this.state.notes.filter(note => {
       return note.title.toLowerCase().indexOf(this.state.noteFilter.toLowerCase())
             !== -1
@@ -95,7 +121,7 @@ class NoteContainer extends Component {
           <Content note={this.state.noteItem}
             handleEdit={this.handleEdit}
             handleClick={this.handleClick}
-            showEditor={this.state.showEditor}/>
+            showEditor={this.state.showEditor} handleSubmit={this.handleSubmit}/>
         </div>
       </Fragment>
     );
