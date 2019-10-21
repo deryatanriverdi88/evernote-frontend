@@ -6,7 +6,6 @@ const NoteItem = (props) => {
   return(
 
   <li onClick={() => props.handleNoteViewer(props.note)}>
-
     <h2>{props.note.title}</h2>
     <Truncate>
     <p>{props.note.body}</p>

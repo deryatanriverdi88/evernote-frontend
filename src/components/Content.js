@@ -13,8 +13,8 @@ import Instructions from "./Instructions";
 
 class Content extends Component {
   renderContent = () => {
-
-    if (this.props.show_editor === true) {
+    console.log(this.props.showEditor)
+    if (this.props.showEditor === true) {
        return <NoteEditor note={this.props.note}/>;
     } else if (this.props.note.id) {
        return <NoteViewer note={this.props.note} handleClick={this.props.handleClick}/>;

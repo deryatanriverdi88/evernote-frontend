@@ -10,7 +10,7 @@ class NoteContainer extends Component {
     noteItem:{},
     title: "",
     body:"",
-    show_editor: false,
+    showEditor: false,
     noteFilter: "",
     filteredNotes: []
   }
@@ -27,9 +27,9 @@ class NoteContainer extends Component {
   }
 
   handleClick = (event) => {
-    console.log(event.target, this.state.show_editor, "hey")
+    console.log(event.target, this.state.showEditor, "hey")
     this.setState({
-      show_editor: true
+      showEditor: true
     })
   }
 
@@ -79,17 +79,22 @@ class NoteContainer extends Component {
 
   render() {
     // console.log(this.props.notes, "I mounted")
+    let filterNotes = this.state.notes.filter(note => {
+      return note.title.toLowerCase().indexOf(this.state.noteFilter.toLowerCase())
+            !== -1
+     })
     return (
       <Fragment>
         <Search handleFilter={this.handleFilterChange}/>
         <div className='container'>
-          <Sidebar notes={this.state.notes}
+          <Sidebar notes={filterNotes}
             handleNoteViewer={this.handleNoteViewer}
             handleNewClick={this.handleNewClick}
             />
           <Content note={this.state.noteItem}
             handleEdit={this.handleEdit}
-            handleClick={this.handleClick}/>
+            handleClick={this.handleClick}
+            showEditor={this.state.showEditor}/>
         </div>
       </Fragment>
     );
