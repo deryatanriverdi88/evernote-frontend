@@ -22,8 +22,8 @@ class NoteContainer extends Component {
     })
   }
 
-  handleEdit = (event, noteObject) => {
-    console.log(event.target)
+  handleEdit = (event) => {
+    console.log(event.target.value)
   }
 
   handleClick = (event) => {
@@ -72,7 +72,8 @@ class NoteContainer extends Component {
   handleNoteViewer = (note) => {
     // console.log(note, "hello")
     this.setState({
-      noteItem: note
+      noteItem: note,
+      showEditor: false
     })
   }
 
