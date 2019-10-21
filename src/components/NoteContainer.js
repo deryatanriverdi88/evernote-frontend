@@ -45,16 +45,28 @@ class NoteContainer extends Component {
     })
     .then(res => res.json())
     .then(noteObject => {
+      const notes = this.state.notes.map((note) => {
+        return note.id === noteObject.id ? noteObject : note
+      })
      this.setState({
-       notes: [noteObject, ...this.state.notes]
+       notes: notes
      })
     })
   }
 
-  handleClick = (event) => {
+  handleClick = (event, noteObject) => {
     // console.log(event.target, this.state.showEditor, "hey")
     this.setState({
+      title: noteObject.title,
+      body: noteObject.body,
       showEditor: true
+    })
+  }
+
+  handleCancel = () => {
+    console.log("I am clicked")
+    this.setState({
+      showEditor: false
     })
   }
 
@@ -121,7 +133,8 @@ class NoteContainer extends Component {
           <Content note={this.state.noteItem}
             handleEdit={this.handleEdit}
             handleClick={this.handleClick}
-            showEditor={this.state.showEditor} handleSubmit={this.handleSubmit}/>
+            showEditor={this.state.showEditor} handleSubmit={this.handleSubmit}
+            handleCancel={this.handleCancel}/>
         </div>
       </Fragment>
     );

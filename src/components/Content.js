@@ -16,7 +16,7 @@ class Content extends Component {
     // console.log(this.props.showEditor)
     if (this.props.showEditor === true) {
        return <NoteEditor note={this.props.note} handleEdit={this.props.handleEdit}
-         handleSubmit={this.props.handleSubmit}/>;
+         handleSubmit={this.props.handleSubmit} handleCancel={this.props.handleCancel}/>;
     } else if (this.props.note.id) {
        return <NoteViewer note={this.props.note} handleClick={this.props.handleClick}/>;
     } else {
