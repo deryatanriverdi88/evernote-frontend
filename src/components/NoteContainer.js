@@ -32,10 +32,9 @@ class NoteContainer extends Component {
 
   handleSort =()=>{
     console.log("I, sort button, have been clicked")
-    // this method should accept and array of notes
-    // and it should take the first letter
-    // and sort by alphabetical
-
+      this.setState({
+        sortValue: true
+      })
   }
 
   handleSubmit = (e, id) => {
