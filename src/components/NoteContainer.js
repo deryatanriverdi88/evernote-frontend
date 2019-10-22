@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import Search from './Search';
 import Sidebar from './Sidebar';
 import Content from './Content';
+import Sorting from './Sorting';
 
 class NoteContainer extends Component {
 
@@ -11,7 +12,8 @@ class NoteContainer extends Component {
     title: "",
     body:"",
     showEditor: false,
-    noteFilter: ""
+    noteFilter: "",
+    sortValue: false
   }
 
   handleFilterChange = (event) => {
@@ -26,6 +28,14 @@ class NoteContainer extends Component {
     this.setState({
       [event.target.name]: event.target.value
     })
+  }
+
+  handleSort =()=>{
+    console.log("I, sort button, have been clicked")
+    // this method should accept and array of notes
+    // and it should take the first letter
+    // and sort by alphabetical
+
   }
 
   handleSubmit = (e, id) => {
@@ -49,7 +59,9 @@ class NoteContainer extends Component {
         return note.id === noteObject.id ? noteObject : note
       })
      this.setState({
-       notes: notes
+       notes: notes,
+       noteItem: noteObject,
+       showEditor: false
      })
     })
   }
@@ -64,7 +76,7 @@ class NoteContainer extends Component {
   }
 
   handleCancel = () => {
-    console.log("I am clicked")
+    // console.log("I am clicked")
     this.setState({
       showEditor: false
     })
@@ -122,13 +134,17 @@ class NoteContainer extends Component {
       return note.title.toLowerCase().indexOf(this.state.noteFilter.toLowerCase())
             !== -1
      })
+
     return (
       <Fragment>
         <Search handleFilter={this.handleFilterChange}/>
+        <Sorting handleSort={this.handleSort}/>
         <div className='container'>
-          <Sidebar notes={filterNotes}
-            handleNoteViewer={this.handleNoteViewer}
-            handleNewClick={this.handleNewClick}
+
+            <Sidebar notes={filterNotes}
+              sortedNotes={this.sortedNotes}
+              handleNoteViewer={this.handleNoteViewer}
+              handleNewClick={this.handleNewClick}
             />
           <Content note={this.state.noteItem}
             handleEdit={this.handleEdit}

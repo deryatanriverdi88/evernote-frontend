@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "prismic-reactjs": "^1.1.1",
     "react": "^16.4.1",
+    "react-alphabet-sorter": "^1.0.2",
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4",
     "react-truncate": "^2.4.0"

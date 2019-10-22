@@ -6,22 +6,23 @@
 @import url('https://fonts.googleapis.com/css?family=Didact+Gothic|IBM+Plex+Mono|Poppins');
 
 * {
-  font-family: 'Didact Gothic'
+  font-family: 'Old Standard TT', serif;
 }
 
 body {
   margin: 0;
   padding: 0;
+
 }
 
 
 /* Styles */
 h2, input[name="title"], textarea {
-  font-family: 'IBM Plex Mono'
+  /* font-family: 'IBM Plex Mono' */
 }
 
 p.instructions {
-	font-family: monospace;
+	/* font-family: monospace; */
 	font-size: 32px;
 	text-align: center;
 }
@@ -39,13 +40,14 @@ p.instructions {
   border: 1px dashed grey;
   box-sizing: border-box;
   resize: none;
+
 }
 
 .nav-bar {
   width: 100%;
   background-image: linear-gradient(to right top, #8C33E3, #696CE8, #4A9EEC);
   background-repeat: no-repeat;
-  font-family: 'IBM Plex Mono';
+  /* font-family: 'IBM Plex Mono'; */
   font-size: 16px;
   letter-spacing: 1.5px;
   font-weight: bolder;
@@ -132,10 +134,12 @@ div.sidebar ul li:hover {
   margin: 10px 0px;
   padding: 20px;
   border: 2px dashed grey;
+  height:70vh;
 }
 
 .sidebar {
   width:25%;
+  height: 70vh;
   overflow: scroll;
 }
 
@@ -146,11 +150,12 @@ div.sidebar ul li:hover {
 .note-editor {
   display: flex;
   flex-direction: column;
-  height: 20%;
+
 }
 
 .note-editor textarea {
   flex: 1;
+  height: 100vh;
 }
 
 .button-row {
