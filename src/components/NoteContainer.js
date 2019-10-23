@@ -31,11 +31,24 @@ class NoteContainer extends Component {
   }
 
   handleSort =()=>{
-    console.log("I, sort button, have been clicked")
+    console.log("I, sort button, have been clicked", this.state.sortValue)
       this.setState({
         sortValue: true
       })
+
+      if (this.state.sortValue ===  true ){
+    this.state.notes.sort((a,b) =>{
+      if(a.title.toLowerCase()  < b.title.toLowerCase()){
+        return -1
+      } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
+        return 1
+      } else {
+        return this.state.notes
+      }
+    })
+   }
   }
+
 
   handleSubmit = (e, id) => {
     console.log(id)
@@ -141,7 +154,7 @@ class NoteContainer extends Component {
         <div className='container'>
 
             <Sidebar notes={filterNotes}
-              sortedNotes={this.sortedNotes}
+              handleSort={this.handleSort}
               handleNoteViewer={this.handleNoteViewer}
               handleNewClick={this.handleNewClick}
             />
