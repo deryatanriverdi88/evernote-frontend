@@ -42,9 +42,7 @@ class NoteContainer extends Component {
         return -1
       } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
         return 1
-      } else {
-        return this.state.notes
-      }
+      } 
     })
    }
   }
