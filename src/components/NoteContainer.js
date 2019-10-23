@@ -16,11 +16,74 @@ class NoteContainer extends Component {
     sortValue: false
   }
 
+  fetchNote = () => {
+   fetch("http://localhost:3000/api/v1/notes")
+   .then(res=>res.json())
+   .then(noteObject => {
+     this.setState({
+       notes: noteObject
+     })
+   })
+  }
+
+  componentDidMount(){
+    this.fetchNote()
+  }
+
   handleFilterChange = (event) => {
     console.log(event.target.value)
     this.setState({
       noteFilter: event.target.value
     })
+  }
+
+  handleSort =()=>{
+    console.log("I, sort button, have been clicked", this.state.sortValue)
+      this.setState({
+        sortValue: true
+      })
+      console.log(this.state.sortValue)
+          if (this.state.sortValue ===  true ){
+            this.state.notes.sort((a,b) =>{
+              if(a.title.toLowerCase()  < b.title.toLowerCase()){
+                return -1
+              } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
+                return 1
+              }
+          })
+       }
+  }
+
+  handleNoteViewer = (note) => {
+    // console.log(note, "hello")
+    this.setState({
+      noteItem: note,
+      // showEditor: false
+    })
+  }
+
+  handleNewClick = (event) =>  {
+    // console.log(event.target, "hey")
+    event.preventDefault()
+
+    fetch("http://localhost:3000/api/v1/notes", {
+      method: "POST",
+      headers: {
+        "Content-Type":"application/json",
+        "Accept":"application/json"
+      },
+      body: JSON.stringify({
+        user_id: 1,
+        title: "title",
+        body: "placeholder"
+      })
+    })
+    .then(res => res.json())
+    .then(newNote => {
+      this.setState({
+        notes: [...this.state.notes, newNote]
+    })
+   })
   }
 
   handleEdit = (event) => {
@@ -30,21 +93,13 @@ class NoteContainer extends Component {
     })
   }
 
-  handleSort =()=>{
-    console.log("I, sort button, have been clicked", this.state.sortValue)
-      this.setState({
-        sortValue: true
-      })
-
-      if (this.state.sortValue ===  true ){
-        this.state.notes.sort((a,b) =>{
-      if(a.title.toLowerCase()  < b.title.toLowerCase()){
-        return -1
-      } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
-        return 1
-      }
+  handleClick = (event, noteObject) => {
+    console.log(event.target, this.state.showEditor, "hey")
+    this.setState({
+      title: noteObject.title,
+      body: noteObject.body,
+      showEditor: true
     })
-   }
   }
 
   handleDelete = (e, id) => {
@@ -62,7 +117,6 @@ class NoteContainer extends Component {
       })
     )
   }
-
 
   handleSubmit = (e, id) => {
     console.log(id)
@@ -92,15 +146,6 @@ class NoteContainer extends Component {
     })
   }
 
-  handleClick = (event, noteObject) => {
-    console.log(event.target, this.state.showEditor, "hey")
-    this.setState({
-      title: noteObject.title,
-      body: noteObject.body,
-      showEditor: true
-    })
-  }
-
   handleCancel = () => {
     // console.log("I am clicked")
     this.setState({
@@ -108,51 +153,9 @@ class NoteContainer extends Component {
     })
   }
 
-  handleNewClick = (event) =>  {
-    // console.log(event.target, "hey")
-    event.preventDefault()
 
-    fetch("http://localhost:3000/api/v1/notes", {
-      method: "POST",
-      headers: {
-        "Content-Type":"application/json",
-        "Accept":"application/json"
-      },
-      body: JSON.stringify({
-        user_id: 1,
-        title: "default",
-        body: "placeholder"
-      })
-    })
-    .then(res => res.json())
-    .then(newNote => {
-      this.setState({
-        notes: [...this.state.notes, newNote]
-    })
-   })
-}
 
- fetchNote = () => {
-   fetch("http://localhost:3000/api/v1/notes")
-   .then(res=>res.json())
-   .then(noteObject => {
-     this.setState({
-       notes: noteObject
-     })
-   })
- }
 
-  componentDidMount(){
-    this.fetchNote()
-  }
-
-  handleNoteViewer = (note) => {
-    // console.log(note, "hello")
-    this.setState({
-      noteItem: note,
-      showEditor: false
-    })
-  }
 
 
   render() {
@@ -165,12 +168,11 @@ class NoteContainer extends Component {
 
     return (
       <Fragment>
-        <Search handleFilter={this.handleFilterChange}/>
+        <Search handleFilterChange={this.handleFilterChange}/>
         <Sorting handleSort={this.handleSort}/>
         <div className='container'>
 
             <Sidebar notes={filterNotes}
-              handleSort={this.handleSort}
               handleNoteViewer={this.handleNoteViewer}
               handleNewClick={this.handleNewClick}
             />
@@ -184,7 +186,7 @@ class NoteContainer extends Component {
         </div>
       </Fragment>
     );
+   }
   }
-}
 
 export default NoteContainer;
