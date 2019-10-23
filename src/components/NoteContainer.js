@@ -31,11 +31,38 @@ class NoteContainer extends Component {
   }
 
   handleSort =()=>{
-    console.log("I, sort button, have been clicked")
+    console.log("I, sort button, have been clicked", this.state.sortValue)
       this.setState({
         sortValue: true
       })
+
+      if (this.state.sortValue ===  true ){
+        this.state.notes.sort((a,b) =>{
+      if(a.title.toLowerCase()  < b.title.toLowerCase()){
+        return -1
+      } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
+        return 1
+      }
+    })
+   }
   }
+
+  handleDelete = (e, id) => {
+    // console.log("hey from delete button", id)
+    fetch(`http://localhost:3000/api/v1/notes/${id}`, {
+      method: "DELETE"
+    })
+    .then(res => res.json())
+    .then(
+      this.fetchNote
+    )
+    .then(
+      this.setState({
+        noteItem: {}
+      })
+    )
+  }
+
 
   handleSubmit = (e, id) => {
     console.log(id)
@@ -66,7 +93,7 @@ class NoteContainer extends Component {
   }
 
   handleClick = (event, noteObject) => {
-    // console.log(event.target, this.state.showEditor, "hey")
+    console.log(event.target, this.state.showEditor, "hey")
     this.setState({
       title: noteObject.title,
       body: noteObject.body,
@@ -105,16 +132,18 @@ class NoteContainer extends Component {
    })
 }
 
-
+ fetchNote = () => {
+   fetch("http://localhost:3000/api/v1/notes")
+   .then(res=>res.json())
+   .then(noteObject => {
+     this.setState({
+       notes: noteObject
+     })
+   })
+ }
 
   componentDidMount(){
-    fetch("http://localhost:3000/api/v1/notes")
-    .then(res=>res.json())
-    .then(noteObject => {
-      this.setState({
-        notes: noteObject
-      })
-    })
+    this.fetchNote()
   }
 
   handleNoteViewer = (note) => {
@@ -141,14 +170,16 @@ class NoteContainer extends Component {
         <div className='container'>
 
             <Sidebar notes={filterNotes}
-              sortedNotes={this.sortedNotes}
+              handleSort={this.handleSort}
               handleNoteViewer={this.handleNoteViewer}
               handleNewClick={this.handleNewClick}
             />
           <Content note={this.state.noteItem}
             handleEdit={this.handleEdit}
             handleClick={this.handleClick}
-            showEditor={this.state.showEditor} handleSubmit={this.handleSubmit}
+            handleDelete={this.handleDelete}
+            showEditor={this.state.showEditor}
+            handleSubmit={this.handleSubmit}
             handleCancel={this.handleCancel}/>
         </div>
       </Fragment>

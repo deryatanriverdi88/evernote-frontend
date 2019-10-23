@@ -18,7 +18,8 @@ class Content extends Component {
        return <NoteEditor note={this.props.note} handleEdit={this.props.handleEdit}
          handleSubmit={this.props.handleSubmit} handleCancel={this.props.handleCancel}/>;
     } else if (this.props.note.id) {
-       return <NoteViewer note={this.props.note} handleClick={this.props.handleClick}/>;
+       return <NoteViewer note={this.props.note} handleClick={this.props.handleClick}
+       handleDelete={this.props.handleDelete}/>;
     } else {
       return  <Instructions />;
     }
