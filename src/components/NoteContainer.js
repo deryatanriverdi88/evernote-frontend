@@ -40,18 +40,31 @@ class NoteContainer extends Component {
   handleSort =()=>{
     console.log("I, sort button, have been clicked", this.state.sortValue)
       this.setState({
-        sortValue: true
-      })
-      console.log(this.state.sortValue)
-          if (this.state.sortValue ===  true ){
-            this.state.notes.sort((a,b) =>{
-              if(a.title.toLowerCase()  < b.title.toLowerCase()){
-                return -1
-              } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
-                return 1
-              }
+        sortValue: !this.state.sortValue
+      }, () => {
+        if (this.state.sortValue === true ){
+            // debugger
+          //   this.state.notes.sort((a,b) =>{
+          //     if(a.title.toLowerCase()  < b.title.toLowerCase()){
+          //       return -1
+          //     } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
+          //       return 1
+          //     }
+          // })
+          let sortedArray = this.state.notes.sort((a,b) =>{
+                if(a.title.toLowerCase()  < b.title.toLowerCase()){
+                  return -1
+                }
+                else if (a.title.toLowerCase() > b.title.toLowerCase()) {
+                  return 1
+                }
           })
-       }
+          this.setState({
+            notes: sortedArray
+          })
+        }
+       
+      })
   }
 
   handleNoteViewer = (note) => {
@@ -154,6 +167,14 @@ class NoteContainer extends Component {
   }
 
 
+  handleReverse = (e, note) => {
+    console.log("I am clicked", note.title)
+    this.setState({
+      noteItem: {...this.state.noteItem, title: note.title.split("").reverse().join("")}
+    })
+
+  }
+
 
 
 
@@ -161,6 +182,7 @@ class NoteContainer extends Component {
   render() {
     // console.log(this.props.notes, "I mounted")
     // console.log(this.state.title, this.state.body)
+    // console.log(this.state.noteItem)
     let filterNotes = this.state.notes.filter(note => {
       return note.title.toLowerCase().indexOf(this.state.noteFilter.toLowerCase())
             !== -1
@@ -182,7 +204,8 @@ class NoteContainer extends Component {
             handleDelete={this.handleDelete}
             showEditor={this.state.showEditor}
             handleSubmit={this.handleSubmit}
-            handleCancel={this.handleCancel}/>
+            handleCancel={this.handleCancel}
+            handleReverse={this.handleReverse}/>
         </div>
       </Fragment>
     );
